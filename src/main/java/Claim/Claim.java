@@ -2,8 +2,10 @@ package Claim;
 
 import Datebase.Recordable;
 import Receiver.Receiver;
+import Utils.DateFormatter;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,12 +22,12 @@ public class Claim  implements Recordable {
     private Status status;
     private Receiver receiver;
 
-    public Claim(String id, LocalDate claimDate, String insuredPersonId, String cardNumber, LocalDate examDate, List<String> documents, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber) {
+    public Claim(String id, String claimDate, String insuredPersonId, String cardNumber, String examDate, List<String> documents, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber) {
         this.id = id;
-        this.claimDate = claimDate;
+        this.claimDate = DateFormatter.parseDate(claimDate);
         this.insuredPersonId = insuredPersonId;
         this.cardNumber = cardNumber;
-        this.examDate = examDate;
+        this.examDate = DateFormatter.parseDate(examDate);
         this.documents = documents;
         this.claimAmount = claimAmount;
         this.status = Status.values()[statusOrdinal];
