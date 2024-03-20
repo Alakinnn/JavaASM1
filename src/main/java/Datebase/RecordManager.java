@@ -20,6 +20,15 @@ public class RecordManager<T extends Recordable> implements Serializable {
     private static List<InsuranceCard> insuranceCards = new ArrayList<>();
     private static List<Claim> claims = new ArrayList<>();
 
+    public RecordManager() {
+    }
+
+    public void addData(T record) {
+        String id = record.getID();
+        database.put(id, record);
+    }
+
+
     public void populateDate() {
         populateCustomers("resources/customers.txt");
         populateClaims("resources/claims.txt");
