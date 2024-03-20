@@ -10,14 +10,12 @@ public class DateFormatter {
                 "dd-MM-yyyy", "MM-dd-yyyy", "yyyy-MM-dd",  // With hyphens
                 "ddMMyyyy", "MMddyyyy", "yyyyMMdd"         // Without hyphens
         };
-
-
         for (String pattern : patterns) {
             try {
                 return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(pattern));
             } catch (DateTimeParseException ignored) {
             }
         }
-        throw new DateTimeParseException("Unable to parse date", dateString, 0);
+        return null;
     }
 }
