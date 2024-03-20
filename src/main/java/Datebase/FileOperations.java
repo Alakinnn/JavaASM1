@@ -5,6 +5,9 @@ import Customer.Customer;
 import InsuranceCard.InsuranceCard;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +68,20 @@ public class FileOperations<T extends Recordable> implements Serializable {
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public boolean fileExists(String fileName) {
+        if (Files.exists(Path.of(fileName))) {
+            return true;
+        } else {
+            try {
+                Files.createFile(Path.of(fileName)); // Create a new file
+                return true; // Return true after creating the file
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle IOException if unable to create the file
+                return false; // Return false if file creation fails
+            }
         }
     }
 }
