@@ -7,7 +7,6 @@ import InsuranceCard.InsuranceCard;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,11 +75,10 @@ public class FileOperations<T extends Recordable> implements Serializable {
             return true;
         } else {
             try {
-                Files.createFile(Path.of(fileName)); // Create a new file
-                return true; // Return true after creating the file
+                Files.createFile(Path.of(fileName));
+                return true;
             } catch (IOException e) {
-                e.printStackTrace(); // Handle IOException if unable to create the file
-                return false; // Return false if file creation fails
+                return false;
             }
         }
     }
