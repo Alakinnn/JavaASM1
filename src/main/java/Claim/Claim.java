@@ -5,10 +5,7 @@ import Receiver.Receiver;
 import Utils.DateFormatter;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Claim  implements Recordable {
     private static final Set<String> existingIds = new HashSet<>();
@@ -17,21 +14,25 @@ public class Claim  implements Recordable {
     private String insuredPersonId;
     private String cardNumber;
     private LocalDate examDate;
-    private List<String> documents;
+    private List<String> documents = new ArrayList<>();
     private double claimAmount;
     private Status status;
     private Receiver receiver;
 
-    public Claim(String id, String claimDate, String insuredPersonId, String cardNumber, String examDate, List<String> documents, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber) {
+    public Claim(String id, String claimDate, String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, String document) {
         this.id = id;
         this.claimDate = DateFormatter.parseDate(claimDate);
         this.insuredPersonId = insuredPersonId;
         this.cardNumber = cardNumber;
         this.examDate = DateFormatter.parseDate(examDate);
-        this.documents = documents;
         this.claimAmount = claimAmount;
         this.status = Status.values()[statusOrdinal];
         this.receiver= new Receiver(receiverBank, receiverName, receiverBankNumber);
+        documents.add(document);
+    }
+
+    public void addDocument(String document) {
+        documents.add(document);
     }
 
     @Override
@@ -41,11 +42,12 @@ public class Claim  implements Recordable {
 
     @Override
     public String setID() {
+        String ranId;
         do {
-            id = generateID();
-        } while (existingIds.contains("f" + id));
-        id = this.id + id;
-        existingIds.add(id);
-        return id;
+            ranId = generateID();
+        } while (existingIds.contains(this.id + ranId));
+        ranId = this.id + ranId;
+        existingIds.add(ranId);
+        return ranId;
     }
 }
