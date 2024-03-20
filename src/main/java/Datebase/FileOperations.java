@@ -1,9 +1,4 @@
 package Datebase;
-
-import Claim.Claim;
-import Customer.Customer;
-import InsuranceCard.InsuranceCard;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,18 +21,5 @@ public class FileOperations implements Serializable {
          } catch (IOException e) {
              throw new RuntimeException(e);
          }
-    }
-
-    static boolean fileExists(String fileName) {
-        if (Files.exists(Path.of(fileName))) {
-            return true;
-        } else {
-            try {
-                Files.createFile(Path.of(fileName));
-                return true;
-            } catch (IOException e) {
-                return false;
-            }
-        }
     }
 }

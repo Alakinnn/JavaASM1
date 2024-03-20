@@ -14,32 +14,31 @@ import java.util.Map;
 
 import static Datebase.FileOperations.*;
 
-public class RecordManager<T extends Recordable> implements Serializable {
+public class RecordManager<T extends Recordable> implements RecordOperations<T>, Serializable {
     private Map<String, T> database = new HashMap<>();
     private static List<Customer> customers = new ArrayList<>();
     private static List<InsuranceCard> insuranceCards = new ArrayList<>();
     private static List<Claim> claims = new ArrayList<>();
+    private static String FILE_ROOT = "resources/";
+    private static String CUSTOMER_FILE = "customers.txt";
+    private static String CLAIM_FILE ="claims.txt";
+    private static String CARDS_FILE = "insuranceCards.txt";
 
     public RecordManager() {
     }
 
-    public void addData(T record) {
-        String id = record.getID();
-        database.put(id, record);
-    }
-
-
-    public void populateDate() {
-        populateCustomers("resources/customers.txt");
-        populateClaims("resources/claims.txt");
-        populateInsuranceCards("resources/insuranceCards.txt");
+    public void populateData() {
+        populateCustomers(FILE_ROOT + CUSTOMER_FILE);
+        populateClaims(FILE_ROOT + CLAIM_FILE);
+        populateInsuranceCards(FILE_ROOT + CARDS_FILE);
     }
 
     public void populateCustomers(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            Customer data;
-            while ((data = (Customer) br.readObject()) != null) {
-                customers.add(data);
+            T data;
+            while ((data = (T) br.readObject()) != null) {
+                customers.add((Customer) data);
+                this.add(data);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -48,9 +47,10 @@ public class RecordManager<T extends Recordable> implements Serializable {
 
     public void populateInsuranceCards(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            InsuranceCard data;
-            while ((data = (InsuranceCard) br.readObject()) != null) {
-                insuranceCards.add(data);
+            T data;
+            while ((data = (T) br.readObject()) != null) {
+                insuranceCards.add((InsuranceCard) data);
+                this.add(data);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -59,12 +59,44 @@ public class RecordManager<T extends Recordable> implements Serializable {
 
     public void populateClaims(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            Claim data;
-            while ((data = (Claim) br.readObject()) != null) {
-                claims.add(data);
+            T data;
+            while ((data = (T) br.readObject()) != null) {
+                claims.add((Claim) data);
+                this.add(data);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void add(T record) {
+        database.put(record.getID(), record);
+    }
+
+    @Override
+    public void delete(String id) {
+        database.remove(id);
+    }
+
+    @Override
+    public T find(String id) {
+        return database.get(id);
+    }
+
+    @Override
+    public void addRecords(T record) {
+        if (record instanceof Customer) {
+            customers.add((Customer) record);
+            FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
+        } else if (record instanceof Claim) {
+            claims.add((Claim) record);
+            FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
+        } else if (record instanceof InsuranceCard) {
+            insuranceCards.add((InsuranceCard) record);
+            FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+        } else {
+            System.out.println("Record class not found");
         }
     }
 }
