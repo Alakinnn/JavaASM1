@@ -19,10 +19,19 @@ public class Claim  implements Recordable {
     private List<String> documents;
     private double claimAmount;
     private Status status;
-    private String receiverBank;
-    private String receiverName;
-    private String receiverBankNumber;
+    private ReceiverInfo receiver;
 
+    public Claim(String id, LocalDate claimDate, String insuredPersonId, String cardNumber, LocalDate examDate, List<String> documents, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber) {
+        this.id = id;
+        this.claimDate = claimDate;
+        this.insuredPersonId = insuredPersonId;
+        this.cardNumber = cardNumber;
+        this.examDate = examDate;
+        this.documents = documents;
+        this.claimAmount = claimAmount;
+        this.status = Status.values()[statusOrdinal];
+        this.receiver= new ReceiverInfo(receiverBank, receiverName, receiverBankNumber);
+    }
 
     @Override
     public String getID() {
