@@ -27,13 +27,13 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     public RecordManager() {
     }
 
-    public void populateData() {
+    private void populateData() {
         populateCustomers(FILE_ROOT + CUSTOMER_FILE);
         populateClaims(FILE_ROOT + CLAIM_FILE);
         populateInsuranceCards(FILE_ROOT + CARDS_FILE);
     }
 
-    public void populateCustomers(String fileName) {
+    private void populateCustomers(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
             T data;
             while ((data = (T) br.readObject()) != null) {
@@ -45,7 +45,7 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
         }
     }
 
-    public void populateInsuranceCards(String fileName) {
+    private void populateInsuranceCards(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
             T data;
             while ((data = (T) br.readObject()) != null) {
@@ -57,7 +57,7 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
         }
     }
 
-    public void populateClaims(String fileName) {
+    private void populateClaims(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
             T data;
             while ((data = (T) br.readObject()) != null) {
@@ -72,11 +72,13 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     @Override
     public void add(T record) {
         database.put(record.getID(), record);
+        addRecords(record);
     }
 
     @Override
     public void delete(String id) {
         database.remove(id);
+        updateRecords(find(id));
     }
 
     @Override
@@ -94,6 +96,22 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
             FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
         } else if (record instanceof InsuranceCard) {
             insuranceCards.add((InsuranceCard) record);
+            FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+        } else {
+            System.out.println("Record class not found");
+        }
+    }
+
+    @Override
+    public void updateRecords(T record) {
+        if (record instanceof Customer) {
+            customers.remove((Customer) record);
+            FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
+        } else if (record instanceof Claim) {
+            claims.remove((Claim) record);
+            FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
+        } else if (record instanceof InsuranceCard) {
+            insuranceCards.remove((InsuranceCard) record);
             FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
         } else {
             System.out.println("Record class not found");
