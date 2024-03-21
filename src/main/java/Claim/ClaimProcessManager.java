@@ -15,9 +15,12 @@ public interface ClaimProcessManager {
     static void update(String claimId, RecordManager rm, String choices) {
         Claim claim = (Claim) rm.find(claimId);
         String[] choiceTokens = choices.split(" ");
-
-        if (choice == 1) {
-            claim.setStatus()
+        int updateChoice = Integer.parseInt(choiceTokens[0]);
+        if (updateChoice == 1) {
+            int statusChoice = Integer.parseInt(choiceTokens[-1]);
+            claim.setStatus(statusChoice);
+        } else {
+            claim.addDocument(choiceTokens[-1]);
         }
     };
     void delete(String claimId, RecordManager rm);
