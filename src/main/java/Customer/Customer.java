@@ -1,6 +1,7 @@
 package Customer;
 
 import Claim.*;
+import Datebase.RecordManager;
 import Datebase.Recordable;
 
 import java.util.ArrayList;
@@ -12,13 +13,16 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
     private static final Set<String> existingIds = new HashSet<>();
     private String id;
     private String fullName;
-    private String insuranceCardID;
+    private String insuranceCardNumber = null;
     private final List<Claim> claimList = new ArrayList<>();
 
-    public Customer(String fullName, String insuranceCardID) {
+    public Customer(String fullName) {
         this.id = setID();
         this.fullName = fullName;
-        this.insuranceCardID = insuranceCardID;
+    }
+
+    public void setInsuranceCardNumber(String insuranceCardNumber) {
+        this.insuranceCardNumber = insuranceCardNumber;
     }
 
     @Override
@@ -38,27 +42,17 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
     }
 
     @Override
-    public void add() {
+    public void delete(String claimId, RecordManager rm) {
 
     }
 
     @Override
-    public void update(String claimId) {
-
-    }
-
-    @Override
-    public void delete(String claimId) {
-
-    }
-
-    @Override
-    public Claim getOne(String claimId) {
+    public Claim getOne(String claimId, RecordManager rm) {
         return null;
     }
 
     @Override
-    public List<Claim> getAll() {
+    public List<Claim> getAll(RecordManager rm) {
         return null;
     }
 }

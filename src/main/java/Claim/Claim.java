@@ -7,7 +7,7 @@ import Utils.DateFormatter;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Claim  implements Recordable {
+public class Claim implements Recordable {
     private static final Set<String> existingIds = new HashSet<>();
     private String id = "f";
     private LocalDate claimDate;
@@ -19,9 +19,9 @@ public class Claim  implements Recordable {
     private Status status;
     private Receiver receiver;
 
-    public Claim(String id, String claimDate, String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, String document) {
-        this.id = id;
-        this.claimDate = DateFormatter.parseDate(claimDate);
+    public Claim(String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, String document) {
+        this.id = setID();
+        this.claimDate = LocalDate.now();
         this.insuredPersonId = insuredPersonId;
         this.cardNumber = cardNumber;
         this.examDate = DateFormatter.parseDate(examDate);
@@ -31,8 +31,15 @@ public class Claim  implements Recordable {
         documents.add(document);
     }
 
-    public void addDocument(String document) {
-        documents.add(document);
+    public boolean addDocument(String document) {
+        documents.add(document); // TODO: Create a document String format check
+        return true;
+    }
+    public boolean setStatus(int statusOrdinal) {
+        if (statusOrdinal != status.ordinal()) {
+            this.status = Status.values()[statusOrdinal];
+            return true;
+        } return false;
     }
 
     @Override

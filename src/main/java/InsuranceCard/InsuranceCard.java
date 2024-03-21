@@ -9,6 +9,7 @@ import java.util.Set;
 
 
 public class InsuranceCard implements Recordable {
+    public static String[] POLICY_OWNERS = {"PKL", "KPO", "FLO", "AOS"};
     private static Set<String> existingNumbers = new HashSet<>();
     private String cardNumber = "";
     private String cardHolder;
