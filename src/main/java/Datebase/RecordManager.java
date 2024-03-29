@@ -69,6 +69,9 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
         }
     }
 
+    public List<Claim> getClaims() {
+        return claims;
+    }
     @Override
     public void add(T record) {
         database.put(record.getID(), record);

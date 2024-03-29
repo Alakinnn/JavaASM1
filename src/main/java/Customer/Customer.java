@@ -25,6 +25,9 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
         this.insuranceCardNumber = insuranceCardNumber;
     }
 
+    public List<Claim> getClaimList() {
+        return claimList;
+    }
     @Override
     public String getID() {
         return this.id;
@@ -41,18 +44,5 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
         return ranId;
     }
 
-    @Override
-    public void delete(String claimId, RecordManager rm) {
 
-    }
-
-    @Override
-    public Claim getOne(String claimId, RecordManager rm) {
-        return null;
-    }
-
-    @Override
-    public List<Claim> getAll(RecordManager rm) {
-        return null;
-    }
 }
