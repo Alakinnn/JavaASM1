@@ -58,6 +58,7 @@ public class Program {
                     ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber, document, rm);
 
                     System.out.println("Successfully added claim!");
+                    continue;
 
                 case 2:
                     System.out.println("""
@@ -80,6 +81,7 @@ public class Program {
                              methodParam = updateChoice + " " + statusChoice;
                             ClaimProcessManager.update(claimID, rm, methodParam);
                             System.out.println("Successfully updated claim status!");
+                            continue;
 
                         case 2:
                             System.out.println("Please enter your document file name: ");
@@ -87,10 +89,11 @@ public class Program {
                             methodParam = updateChoice + " " + newDocument;
                             ClaimProcessManager.update(claimID, rm, methodParam);
                             System.out.println("Successfully added claim's document!");
+                            continue;
 
                         default:
                             System.out.println("Invalid choice");
-                            return;
+                            continue;
                     }
 
                 case 3:
@@ -99,9 +102,10 @@ public class Program {
                     if (rm.find(deleteClaimID) != null) {
                         ClaimProcessManager.delete(deleteClaimID, rm);
                         System.out.println("Successfully deleted claim with ID: " + deleteClaimID);
+                        continue;
                     } else {
                         System.out.println("Claim not found!");
-                        return;
+                        continue;
                     }
 
                 case 4:
@@ -109,9 +113,10 @@ public class Program {
                     String queriedClaimID = scanner.nextLine();
                     if (rm.find(queriedClaimID) != null) {
                         System.out.println(rm.find(queriedClaimID));
+                        continue;
                     } else {
                         System.out.println("Claim not found!");
-                        return;
+                        continue;
                     }
 
                 case 5:
@@ -119,11 +124,15 @@ public class Program {
                     String customerID = scanner.nextLine();
                     if (rm.find(customerID) != null){
                         ClaimProcessManager.getAll(customerID, rm);
+                        continue;
+                    } else {
+                        System.out.println("Customer not found!");
+                        continue;
                     }
 
                 default:
                     System.out.println("Thank you for your time! Program closing...");
-                    running = false;
+                    break;
             }
         }
     }
