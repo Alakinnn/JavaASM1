@@ -3,6 +3,7 @@ package Customer;
 import Claim.*;
 import Datebase.RecordManager;
 import Datebase.Recordable;
+import InsuranceCard.InsuranceCard;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
     private static final Set<String> existingIds = new HashSet<>();
     private String id;
     private String fullName;
-    private String insuranceCardNumber = null;
+    private InsuranceCard insuranceCard = new InsuranceCard(this);
     private final List<Claim> claimList = new ArrayList<>();
 
     public Customer(String fullName) {
@@ -21,8 +22,12 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
         this.fullName = fullName;
     }
 
-    public void setInsuranceCardNumber(String insuranceCardNumber) {
-        this.insuranceCardNumber = insuranceCardNumber;
+    public String getFullName() {
+        return fullName;
+    }
+
+    public InsuranceCard getInsuranceCard() {
+        return insuranceCard;
     }
 
     public List<Claim> getClaimList() {

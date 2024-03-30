@@ -11,7 +11,9 @@ public class PolicyHolder extends Customer{
         super(fullName);
     }
 
-    public void addDependent(Dependent dependent) {
+    public void addDependent(String dependentName) {
+        Dependent dependent = new Dependent(dependentName);
         dependentList.add(dependent);
+        dependent.setPolicyHolder(this);
     }
 }
