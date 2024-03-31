@@ -19,7 +19,7 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     private static List<Customer> customers = new ArrayList<>();
     private static List<InsuranceCard> insuranceCards = new ArrayList<>();
     private static List<Claim> claims = new ArrayList<>();
-    private static String FILE_ROOT = "resources/";
+    private static String FILE_ROOT = "src/main/resources";
     private static String CUSTOMER_FILE = "customers.txt";
     private static String CLAIM_FILE ="claims.txt";
     private static String CARDS_FILE = "insuranceCards.txt";
@@ -55,6 +55,7 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     private void populateClaims(String fileName) {

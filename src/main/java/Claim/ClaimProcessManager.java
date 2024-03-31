@@ -8,9 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public interface ClaimProcessManager {
-    static void add(String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, String document, RecordManager rm) {
-
-        Claim newClaim = new Claim(insuredPersonId, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber, document);
+    static void add(String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, RecordManager rm) {
+        Claim newClaim = new Claim(insuredPersonId, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber);
+        Customer customer = (Customer) rm.find(insuredPersonId);
+        customer.addClaimList(newClaim);
         rm.add(newClaim);
 
     }

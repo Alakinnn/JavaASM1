@@ -1,16 +1,19 @@
-import Claim.ClaimProcessManager;
+import Claim.*;
 import Datebase.RecordManager;
 
 import java.util.Scanner;
 
 public class Program {
-    public static void start() {
+    private RecordManager rm;
+    public Program(RecordManager rm) {
+        this.rm = rm;
+    }
+    public void start() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         System.out.println("Welcome to the Insurance Manager Application");
         System.out.println("Version: 1.0.0");
         System.out.println("----------------------------------");
-        RecordManager rm = new RecordManager<>();
         while (running) {
             System.out.println("""
                     1. Add claim
@@ -28,6 +31,7 @@ public class Program {
                     System.out.println("DISCLAIMER: DUE TO UNDERDEVELOPED ERROR-HANDLING, INPUTS MUST BE ERROR-FREE!");
                     System.out.println("Insured person ID: ");
                     String insuredPersonID = scanner.nextLine();
+                    scanner.nextLine();
 
                     System.out.println("Card Number: ");
                     String cardNumber = scanner.nextLine();
@@ -52,10 +56,7 @@ public class Program {
                     System.out.println("Receiver Bank Number: ");
                     String receiverBankNumber = scanner.nextLine();
 
-                    System.out.println("Document: ");
-                    String document = scanner.nextLine();
-
-                    ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber, document, rm);
+                    ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber, rm);
 
                     System.out.println("Successfully added claim!");
                     continue;
@@ -69,6 +70,7 @@ public class Program {
                     System.out.println("Input Claim ID: ");
                     String methodParam;
                     String claimID = scanner.nextLine();
+                    Claim updateClaim = (Claim) rm.find(claimID);
 
                     switch (updateChoice) {
                         case 1:
