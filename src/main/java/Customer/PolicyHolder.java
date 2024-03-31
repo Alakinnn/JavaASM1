@@ -1,9 +1,10 @@
 package Customer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PolicyHolder extends Customer{
+public class PolicyHolder extends Customer {
     private final List<Dependent> dependentList = new ArrayList<>();
 
 

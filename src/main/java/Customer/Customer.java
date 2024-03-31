@@ -5,14 +5,16 @@ import Datebase.RecordManager;
 import Datebase.Recordable;
 import InsuranceCard.InsuranceCard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Customer implements Recordable, ClaimProcessManager {
+public abstract class Customer implements Recordable, ClaimProcessManager, Serializable {
+    private static final long serialVersionUID = 456789012L;
     private static final Set<String> existingIds = new HashSet<>();
-    private String id;
+    private String id = "c";
     private String fullName;
     private InsuranceCard insuranceCard = new InsuranceCard(this);
     private final List<Claim> claimList = new ArrayList<>();
@@ -33,6 +35,11 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
     public List<Claim> getClaimList() {
         return claimList;
     }
+
+    public void addClaimList(Claim claim) {
+        this.claimList.add(claim);
+    }
+
     @Override
     public String getID() {
         return this.id;
@@ -49,5 +56,12 @@ public abstract class Customer implements Recordable, ClaimProcessManager {
         return ranId;
     }
 
-
+    @Override
+    public String toString() {
+        return "Customer name: " + getFullName() + "\n" +
+                "Customer ID: " + getID() + "\n" +
+                "Insurance Card Number: " + getInsuranceCard().getCardNumber() + "\n" +
+                "Number of claims: " + getClaimList().size() + "\n"
+                ;
+    }
 }

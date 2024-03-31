@@ -4,13 +4,15 @@ import Customer.*;
 import Datebase.Recordable;
 import Utils.DateFormatter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 
-public class InsuranceCard implements Recordable {
+public class InsuranceCard implements Recordable, Serializable {
+    private static final long serialVersionUID = 345678901L;
     private static String[] POLICY_OWNERS = {"PKL", "KPO", "FLO", "AOS"};
     private static Random RANDOM = new Random();
     private static Set<String> existingNumbers = new HashSet<>();
@@ -85,5 +87,15 @@ public class InsuranceCard implements Recordable {
         ranId = this.cardNumber + ranId;
         existingNumbers.add(ranId);
         return ranId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Card Number: " + cardNumber + '\n' +
+                "Card Holder: " + cardHolder.getFullName() + '\n' +
+                "Policy Owner: " + policyOwner + '\n' +
+                "Expiration Date: " + expirationDate + '\n'
+                ;
     }
 }
