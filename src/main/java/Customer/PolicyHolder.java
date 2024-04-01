@@ -12,8 +12,10 @@ public class PolicyHolder extends Customer {
         super(fullName);
     }
 
-    public void addDependent(String dependentName) {
-        Dependent dependent = new Dependent(dependentName);
+    public void addDependent(Dependent dependent) {
+        if (dependent.getPolicyHolder() != null) {
+            System.out.println("Dependent already associated with a policy holder!");
+        }
         dependentList.add(dependent);
         dependent.setPolicyHolder(this);
     }

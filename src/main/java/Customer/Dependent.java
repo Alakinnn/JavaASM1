@@ -2,14 +2,18 @@ package Customer;
 
 import java.io.Serializable;
 
-class Dependent extends Customer {
+public class Dependent extends Customer {
     private PolicyHolder policyHolder;
 
-     Dependent(String fullName) {
+    public Dependent(String fullName) {
         super(fullName);
     }
 
-     void setPolicyHolder(PolicyHolder policyHolder) {
+    public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
+    }
+
+    public PolicyHolder getPolicyHolder() {
+        return policyHolder;
     }
 }
