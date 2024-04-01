@@ -2,17 +2,26 @@ package Claim;
 
 import Customer.Customer;
 import Datebase.RecordManager;
+import Datebase.RecordOperations;
+import Datebase.Recordable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public interface ClaimProcessManager {
-    static void add(String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber, RecordManager rm) {
-        Claim newClaim = new Claim(insuredPersonId, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber);
-        Customer customer = (Customer) rm.find(insuredPersonId);
-        customer.addClaimList(newClaim);
-        rm.add(newClaim);
+    static Claim add(String insuredPersonID, String cardNumber, String examDate, double claimAmount, String receiverBank, String receiverName, String receiverBankNumber, RecordManager rm) {
+        Claim claim = new Claim(insuredPersonID, cardNumber, examDate, claimAmount, Status.NEW.ordinal(), receiverBank, receiverName, receiverBankNumber);
+        Customer customer = (Customer) rm.find(insuredPersonID);
+
+        if (customer != null) {
+            customer.addClaimList(claim);
+            rm.add(claim);
+        } else {
+            // Handle case where customer is not found
+            System.out.println("Customer not found with ID: " + claim.getInsuredPersonId());
+        }
+        return claim;
 
     }
 
