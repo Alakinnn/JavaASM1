@@ -15,16 +15,20 @@ import java.util.Map;
 import static Datebase.FileOperations.*;
 
 public class RecordManager<T extends Recordable> implements RecordOperations<T>, Serializable {
+    private static final long serialVersionUID = 250424050L;
     private Map<String, T> database = new HashMap<>();
     private static List<Customer> customers = new ArrayList<>();
     private static List<InsuranceCard> insuranceCards = new ArrayList<>();
     private static List<Claim> claims = new ArrayList<>();
-    private static String FILE_ROOT = "src/main/resources";
+    private static String FILE_ROOT = "src/main/resources/";
     private static String CUSTOMER_FILE = "customers.txt";
     private static String CLAIM_FILE ="claims.txt";
     private static String CARDS_FILE = "insuranceCards.txt";
 
     public RecordManager() {
+        if (database.isEmpty() || customers.isEmpty() || insuranceCards.isEmpty() || claims.isEmpty()) {
+            populateData();
+        }
     }
 
     private void populateData() {
@@ -35,10 +39,9 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
 
     private void populateCustomers(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            T data;
-            while ((data = (T) br.readObject()) != null) {
-                customers.add((Customer) data);
-                this.add(data);
+            List<Customer> customerList = (List<Customer>) br.readObject();
+            for (Customer customer : customerList) {
+                this.add((T) customer);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -47,10 +50,9 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
 
     private void populateInsuranceCards(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            T data;
-            while ((data = (T) br.readObject()) != null) {
-                insuranceCards.add((InsuranceCard) data);
-                this.add(data);
+            List<InsuranceCard> insuranceCards = (List<InsuranceCard>) br.readObject();
+            for (InsuranceCard card : insuranceCards) {
+                this.add((T) card);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -60,10 +62,9 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
 
     private void populateClaims(String fileName) {
         try (ObjectInputStream br = read(fileName)) {
-            T data;
-            while ((data = (T) br.readObject()) != null) {
-                claims.add((Claim) data);
-                this.add(data);
+            List<Claim> claimList = (List<Claim>) br.readObject();
+            for (Claim claim : claimList) {
+                this.add((T) claim);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -73,6 +74,16 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     public List<Claim> getClaims() {
         return claims;
     }
+
+
+    public static List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public static List<InsuranceCard> getInsuranceCards() {
+        return insuranceCards;
+    }
+
     @Override
     public void add(T record) {
         database.put(record.getID(), record);
