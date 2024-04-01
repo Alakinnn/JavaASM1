@@ -29,4 +29,9 @@ public class FileOperations implements Serializable {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean fileExists(String FILE_NAME) {
+        File file = new File(FILE_NAME);
+        return file.exists();
+    }
 }
