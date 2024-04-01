@@ -1,4 +1,5 @@
 import Claim.*;
+import Customer.Customer;
 import Datebase.RecordManager;
 
 import java.util.Scanner;
@@ -20,8 +21,8 @@ public class Program {
                     2. Update claim
                     3. Delete claim
                     4. Find claim
-                    5. Get all claim
-                    Any key. Exit Program
+                    5. Get all claims
+                    0. Exit Program
                     """);
             int choice = scanner.nextInt();
 
@@ -30,6 +31,7 @@ public class Program {
                     System.out.println("Please add claim information");
                     System.out.println("DISCLAIMER: DUE TO UNDERDEVELOPED ERROR-HANDLING, INPUTS MUST BE ERROR-FREE!");
                     System.out.println("Insured person ID: ");
+                    scanner.nextLine();
                     String insuredPersonID = scanner.nextLine();
                     scanner.nextLine();
 
@@ -43,10 +45,6 @@ public class Program {
                     double claimAmount = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline character
 
-                    System.out.println("Status Ordinal: ");
-                    int statusOrdinal = scanner.nextInt();
-                    scanner.nextLine(); // Consume the newline character
-
                     System.out.println("Receiver Bank: ");
                     String receiverBank = scanner.nextLine();
 
@@ -55,10 +53,10 @@ public class Program {
 
                     System.out.println("Receiver Bank Number: ");
                     String receiverBankNumber = scanner.nextLine();
-
-                    ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, statusOrdinal, receiverBank, receiverName, receiverBankNumber, rm);
+                    Claim claim = ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, receiverBank, receiverName, receiverBankNumber, rm);
 
                     System.out.println("Successfully added claim!");
+                    System.out.println(claim);
                     continue;
 
                 case 2:
@@ -70,7 +68,6 @@ public class Program {
                     System.out.println("Input Claim ID: ");
                     String methodParam;
                     String claimID = scanner.nextLine();
-                    Claim updateClaim = (Claim) rm.find(claimID);
 
                     switch (updateChoice) {
                         case 1:
@@ -111,6 +108,7 @@ public class Program {
                     }
 
                 case 4:
+                    scanner.nextLine();
                     System.out.println("Please enter claim ID: ");
                     String queriedClaimID = scanner.nextLine();
                     if (rm.find(queriedClaimID) != null) {
@@ -122,19 +120,26 @@ public class Program {
                     }
 
                 case 5:
+                    scanner.nextLine();
                     System.out.println("Please enter customer ID: ");
                     String customerID = scanner.nextLine();
                     if (rm.find(customerID) != null){
-                        ClaimProcessManager.getAll(customerID, rm);
-                        continue;
+                        Customer customer = (Customer) rm.find(customerID);
+                        if (customer.getClaimList().isEmpty()) {
+                            System.out.println("Customer has no claim!");
+                            continue;
+                        } else {
+                            ClaimProcessManager.getAll(customerID, rm);
+                            continue;
+                        }
                     } else {
                         System.out.println("Customer not found!");
                         continue;
                     }
 
-                default:
+                case 0:
                     System.out.println("Thank you for your time! Program closing...");
-                    break;
+                    return;
             }
         }
     }
