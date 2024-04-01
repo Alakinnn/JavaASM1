@@ -29,17 +29,23 @@ public class SampleDataGenerator {
         PolicyHolder holder13 = new PolicyHolder("Alice Johnson");
         PolicyHolder holder14 = new PolicyHolder("Benjamin Smith");
         PolicyHolder holder15 = new PolicyHolder("Chloe Davis");
+        Dependent dependent1 = new Dependent("Muhammamad Aliwest");
+        Dependent dependent2 = new Dependent("Jackleson Bennington");
+        Dependent dependent3 = new Dependent("Alpha Dian");
+        Dependent dependent4 = new Dependent("McMington De Lucy");
+        Dependent dependent5 = new Dependent("Wu Shin");
+        Dependent dependent6 = new Dependent("Andrew Ng");
 
-        holder1.addDependent("Emma Adams");
-        holder1.addDependent("Alexander Lee");
+        holder1.addDependent(dependent1);
+        holder1.addDependent(dependent2);
 
-        holder2.addDependent("Grace Walker");
+        holder2.addDependent(dependent3);
 
-        holder5.addDependent("Henry Harris");
+        holder5.addDependent(dependent4);
 
-        holder8.addDependent("Sophia Carter");
+        holder8.addDependent(dependent5);
 
-        holder11.addDependent("William Moore");
+        holder11.addDependent(dependent6);
 
         sampleCustomers.add(holder1);
         sampleCustomers.add(holder2);
@@ -56,6 +62,13 @@ public class SampleDataGenerator {
         sampleCustomers.add(holder13);
         sampleCustomers.add(holder14);
         sampleCustomers.add(holder15);
+        sampleCustomers.add(dependent1);
+        sampleCustomers.add(dependent2);
+        sampleCustomers.add(dependent3);
+        sampleCustomers.add(dependent4);
+        sampleCustomers.add(dependent5);
+        sampleCustomers.add(dependent6);
+
 
         Claim claim1 = new Claim(holder1.getID(), holder1.getInsuranceCard().getID(), "2024-03-01", 1000.0, Status.NEW.ordinal(), "BankA", "John Doe", "1234567890");
         sampleClaims.add(claim1);
@@ -90,8 +103,26 @@ public class SampleDataGenerator {
         Claim claim11 = new Claim(holder4.getID(), holder4.getInsuranceCard().getID(), "2024-03-08", 1600.0, Status.NEW.ordinal(), "BankQ", "Mia Clark", "9012345678");
         sampleClaims.add(claim11);
 
-        Claim claim12 = new Claim(holder4.getID(), holder4.getInsuranceCard().getID(), "2024-03-13", 2300.0, Status.NEW.ordinal(), "BankR", "Lucas Adams", "0123456789");
+        Claim claim12 = new Claim(holder5.getID(), holder4.getInsuranceCard().getID(), "2024-03-13", 2300.0, Status.NEW.ordinal(), "BankR", "Lucas Adams", "0123456789");
         sampleClaims.add(claim12);
+
+        Claim claim13 = new Claim(holder5.getID(), holder4.getInsuranceCard().getID(), "2024-03-14", 2500.0, Status.NEW.ordinal(), "BankS", "Emma Watson", "1234567890");
+        sampleClaims.add(claim13);
+
+        Claim claim14 = new Claim(holder6.getID(), holder4.getInsuranceCard().getID(), "2024-03-15", 2700.0, Status.NEW.ordinal(), "BankT", "Michael Johnson", "2345678901");
+        sampleClaims.add(claim14);
+
+        Claim claim15 = new Claim(holder7.getID(), holder4.getInsuranceCard().getID(), "2024-03-16", 2900.0, Status.NEW.ordinal(), "BankU", "Olivia Garcia", "3456789012");
+        sampleClaims.add(claim15);
+
+        Claim claim16 = new Claim(holder8.getID(), holder4.getInsuranceCard().getID(), "2024-03-17", 3100.0, Status.NEW.ordinal(), "BankV", "William Martinez", "4567890123");
+        sampleClaims.add(claim16);
+
+        Claim claim17 = new Claim(holder11.getID(), holder4.getInsuranceCard().getID(), "2024-03-18", 3300.0, Status.NEW.ordinal(), "BankW", "Sophia Hernandez", "5678901234");
+        sampleClaims.add(claim17);
+
+        Claim claim18 = new Claim(holder15.getID(), holder4.getInsuranceCard().getID(), "2024-03-19", 3500.0, Status.NEW.ordinal(), "BankX", "James Lopez", "6789012345");
+        sampleClaims.add(claim18);
 
         holder1.addClaimList(claim1);
         holder1.addClaimList(claim2);
