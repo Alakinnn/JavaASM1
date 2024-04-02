@@ -1,4 +1,4 @@
-package Datebase;
+package Database;
 
 import Claim.Claim;
 import Customer.Customer;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Datebase.FileOperations.*;
+import static Database.FileOperations.*;
 
 public class RecordManager<T extends Recordable> implements RecordOperations<T>, Serializable {
     @Serial

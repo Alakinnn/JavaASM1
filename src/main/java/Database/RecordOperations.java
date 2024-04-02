@@ -1,4 +1,4 @@
-package Datebase;
+package Database;
 
 public interface RecordOperations<T extends Recordable> {
     void add(T record);

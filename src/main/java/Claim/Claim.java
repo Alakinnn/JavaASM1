@@ -1,6 +1,6 @@
 package Claim;
 
-import Datebase.Recordable;
+import Database.Recordable;
 import Receiver.Receiver;
 import Utils.DateFormatter;
 

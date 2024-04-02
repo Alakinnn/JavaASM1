@@ -1,7 +1,7 @@
 package InsuranceCard;
 
 import Customer.*;
-import Datebase.Recordable;
+import Database.Recordable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;

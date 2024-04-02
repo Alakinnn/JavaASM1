@@ -1,13 +1,7 @@
 package Claim;
 
 import Customer.Customer;
-import Datebase.RecordManager;
-import Datebase.RecordOperations;
-import Datebase.Recordable;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import Database.RecordManager;
 
 public interface ClaimProcessManager {
     static Claim add(String insuredPersonID, String cardNumber, String examDate, double claimAmount, String receiverBank, String receiverName, String receiverBankNumber, RecordManager rm) {

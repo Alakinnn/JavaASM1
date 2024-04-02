@@ -1,7 +1,7 @@
 package Customer;
 
 import Claim.*;
-import Datebase.Recordable;
+import Database.Recordable;
 import InsuranceCard.InsuranceCard;
 
 import java.io.Serial;

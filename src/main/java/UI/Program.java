@@ -2,7 +2,7 @@ package UI;
 
 import Claim.*;
 import Customer.Customer;
-import Datebase.RecordManager;
+import Database.RecordManager;
 
 import java.util.Scanner;
 

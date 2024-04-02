@@ -1,5 +1,5 @@
-import Datebase.FileOperations;
-import Datebase.RecordManager;
+import Database.FileOperations;
+import Database.RecordManager;
 import UI.Program;
 import Utils.SampleFileGenerator;
 

@@ -1,5 +1,5 @@
 package Utils;
-import Datebase.*;
+import Database.*;
 
 public class SampleFileGenerator {
     public static void generateSampleFile() {
