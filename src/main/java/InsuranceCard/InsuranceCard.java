@@ -17,9 +17,9 @@ public class InsuranceCard implements Recordable, Serializable {
     private static final Random RANDOM = new Random();
     private static final Set<String> existingNumbers = new HashSet<>();
     private String cardNumber = "";
-    private Customer cardHolder;
-    private String policyOwner;
-    private LocalDate expirationDate;
+    private final Customer cardHolder;
+    private final String policyOwner;
+    private final LocalDate expirationDate;
 
     public InsuranceCard(Customer cardHolder) {
         this.cardNumber = setID();
@@ -30,34 +30,6 @@ public class InsuranceCard implements Recordable, Serializable {
 
     public String getCardNumber() {
         return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public Customer getCardHolder() {
-        return cardHolder;
-    }
-
-    public void setCardHolder(Customer cardHolder) {
-        this.cardHolder = cardHolder;
-    }
-
-    public String getPolicyOwner() {
-        return policyOwner;
-    }
-
-    public void setPolicyOwner(String policyOwner) {
-        this.policyOwner = policyOwner;
-    }
-
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
     }
 
     private LocalDate generateRandomExpirationDate() {

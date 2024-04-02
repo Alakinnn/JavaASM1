@@ -6,6 +6,7 @@ import InsuranceCard.InsuranceCard;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,15 +16,16 @@ import java.util.Map;
 import static Datebase.FileOperations.*;
 
 public class RecordManager<T extends Recordable> implements RecordOperations<T>, Serializable {
+    @Serial
     private static final long serialVersionUID = 250424050L;
-    private Map<String, T> database = new HashMap<>();
-    private static List<Customer> customers = new ArrayList<>();
-    private static List<InsuranceCard> insuranceCards = new ArrayList<>();
-    private static List<Claim> claims = new ArrayList<>();
-    private static String FILE_ROOT = "src/main/resources/";
-    private static String CUSTOMER_FILE = "customers.txt";
-    private static String CLAIM_FILE ="claims.txt";
-    private static String CARDS_FILE = "insuranceCards.txt";
+    private final Map<String, T> database = new HashMap<>();
+    private static final List<Customer> customers = new ArrayList<>();
+    private static final List<InsuranceCard> insuranceCards = new ArrayList<>();
+    private static final List<Claim> claims = new ArrayList<>();
+    private static final String FILE_ROOT = "src/main/resources/";
+    private static final String CUSTOMER_FILE = "customers.txt";
+    private static final String CLAIM_FILE = "claims.txt";
+    private static final String CARDS_FILE = "insuranceCards.txt";
 
     public RecordManager() {
         if (database.isEmpty() || customers.isEmpty() || insuranceCards.isEmpty() || claims.isEmpty()) {

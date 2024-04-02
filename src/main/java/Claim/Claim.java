@@ -34,36 +34,12 @@ public class Claim implements Recordable, Serializable {
         this.receiver = new Receiver(receiverBank, receiverName, receiverBankNumber);
     }
 
-    public LocalDate getClaimDate() {
-        return claimDate;
-    }
-
     public String getInsuredPersonId() {
         return insuredPersonId;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public LocalDate getExamDate() {
-        return examDate;
-    }
-
     public List<String> getDocuments() {
         return documents;
-    }
-
-    public double getClaimAmount() {
-        return claimAmount;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Receiver getReceiver() {
-        return receiver;
     }
 
     public void addDocument(String document) {

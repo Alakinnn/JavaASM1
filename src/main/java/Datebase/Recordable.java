@@ -5,7 +5,6 @@ import Customer.Customer;
 import java.util.Random;
 
 public interface Recordable {
-    String ID_HEADER = "";
     Random RANDOM_ID_GENERATOR = new Random();
     default String generateID() {
         if (this instanceof Customer) {

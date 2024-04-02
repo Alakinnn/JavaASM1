@@ -1,8 +1,10 @@
 package Receiver;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Receiver implements Serializable {
+    @Serial
     private static final long serialVersionUID = 234567890L;
     private String bankName;
     private String accountName;
@@ -18,24 +20,12 @@ public class Receiver implements Serializable {
         return bankName;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
     public String getAccountName() {
         return accountName;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
     public String getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     @Override
