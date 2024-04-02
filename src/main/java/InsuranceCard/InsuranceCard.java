@@ -2,8 +2,7 @@ package InsuranceCard;
 
 import Customer.*;
 import Datebase.Recordable;
-import Utils.DateFormatter;
-
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -12,10 +11,11 @@ import java.util.Set;
 
 
 public class InsuranceCard implements Recordable, Serializable {
+    @Serial
     private static final long serialVersionUID = 345678901L;
-    private static String[] POLICY_OWNERS = {"PKL", "KPO", "FLO", "AOS"};
-    private static Random RANDOM = new Random();
-    private static Set<String> existingNumbers = new HashSet<>();
+    private static final String[] POLICY_OWNERS = {"PKL", "KPO", "FLO", "AOS"};
+    private static final Random RANDOM = new Random();
+    private static final Set<String> existingNumbers = new HashSet<>();
     private String cardNumber = "";
     private Customer cardHolder;
     private String policyOwner;
