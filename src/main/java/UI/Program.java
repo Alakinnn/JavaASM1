@@ -1,4 +1,7 @@
 package UI;
+/**
+ * @author <Duong Tran Minh Hoang - S3978452>
+ */
 
 import Claim.*;
 import Customer.Customer;
@@ -6,8 +9,18 @@ import Database.RecordManager;
 
 import java.util.Scanner;
 
+/**
+ * <p>
+ *     Note: This class serves as the UI for the entire system by implementing switch-case syntax. It also includes null-checking upon inputting.
+ * </p>
+ */
 public class Program {
     private RecordManager rm;
+
+    /**
+     * Create a Program object
+     * @param rm
+     */
     public Program(RecordManager rm) {
         this.rm = rm;
     }

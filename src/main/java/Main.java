@@ -1,3 +1,7 @@
+/**
+ * @author <Duong Tran Minh Hoang - S3978452>
+ */
+
 import Database.FileOperations;
 import Database.RecordManager;
 import UI.Program;
