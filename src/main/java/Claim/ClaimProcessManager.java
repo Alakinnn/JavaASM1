@@ -45,9 +45,8 @@ public interface ClaimProcessManager {
     static void getAll(String customerID, RecordManager rm) {
         Customer customer = (Customer) rm.find(customerID);
         if (customer != null) {
-            Iterator<Claim> iterator = customer.getClaimList().iterator();
-            while (iterator.hasNext())  {
-                System.out.println(iterator.next());
+            for (Claim claim : customer.getClaimList()) {
+                System.out.println(claim);
             }
         }
     };
