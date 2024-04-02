@@ -19,9 +19,9 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     @Serial
     private static final long serialVersionUID = 250424050L;
     private final Map<String, T> database = new HashMap<>();
-    private static final List<Customer> customers = new ArrayList<>();
-    private static final List<InsuranceCard> insuranceCards = new ArrayList<>();
-    private static final List<Claim> claims = new ArrayList<>();
+    private final List<Customer> customers = new ArrayList<>();
+    private final List<InsuranceCard> insuranceCards = new ArrayList<>();
+    private final List<Claim> claims = new ArrayList<>();
     private static final String FILE_ROOT = "src/main/resources/";
     private static final String CUSTOMER_FILE = "customers.txt";
     private static final String CLAIM_FILE = "claims.txt";
