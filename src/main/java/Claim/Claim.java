@@ -4,22 +4,24 @@ import Datebase.Recordable;
 import Receiver.Receiver;
 import Utils.DateFormatter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
 public class Claim implements Recordable, Serializable {
+    @Serial
     private static final long serialVersionUID = 987654321L;
     private static final Set<String> existingIds = new HashSet<>();
     private String id = "f";
-    private LocalDate claimDate;
-    private String insuredPersonId;
-    private String cardNumber;
-    private LocalDate examDate;
-    private List<String> documents = new ArrayList<>();
-    private double claimAmount;
+    private final LocalDate claimDate;
+    private final String insuredPersonId;
+    private final String cardNumber;
+    private final LocalDate examDate;
+    private final List<String> documents = new ArrayList<>();
+    private final double claimAmount;
     private Status status;
-    private Receiver receiver;
+    private final Receiver receiver;
 
     public Claim(String insuredPersonId, String cardNumber, String examDate, double claimAmount, int statusOrdinal, String receiverBank, String receiverName, String receiverBankNumber) {
         this.id = setID();
@@ -64,15 +66,14 @@ public class Claim implements Recordable, Serializable {
         return receiver;
     }
 
-    public boolean addDocument(String document) {
+    public void addDocument(String document) {
         documents.add(document);
-        return true;
     }
-    public boolean setStatus(int statusOrdinal) {
+
+    public void setStatus(int statusOrdinal) {
         if (statusOrdinal != status.ordinal()) {
             this.status = Status.values()[statusOrdinal];
-            return true;
-        } return false;
+        }
     }
 
     @Override
