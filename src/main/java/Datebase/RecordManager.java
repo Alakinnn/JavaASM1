@@ -92,9 +92,27 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
 
     @Override
     public void delete(String id) {
-        database.remove(id);
-        updateRecords(find(id));
+        T recordToDelete = find(id); // Find the record to delete by ID
+        if (recordToDelete != null) {
+            // Remove the record from the database
+            database.remove(id);
+
+            // Remove the record from the respective list
+            if (recordToDelete instanceof Customer) {
+                customers.remove((Customer) recordToDelete);
+                FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
+            } else if (recordToDelete instanceof Claim) {
+                claims.remove((Claim) recordToDelete);
+                FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
+            } else if (recordToDelete instanceof InsuranceCard) {
+                insuranceCards.remove((InsuranceCard) recordToDelete);
+                FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+            }
+        } else {
+            System.out.println("Record not found for deletion");
+        }
     }
+
 
     @Override
     public T find(String id) {
@@ -118,18 +136,24 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
     }
 
     @Override
-    public void updateRecords(T record) {
-        if (record instanceof Customer) {
-            customers.remove((Customer) record);
-            FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
-        } else if (record instanceof Claim) {
-            claims.remove((Claim) record);
-            FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
-        } else if (record instanceof InsuranceCard) {
-            insuranceCards.remove((InsuranceCard) record);
-            FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+    public void updateRecords(T newRecord) {
+        T oldRecord = find(newRecord.getID()); // Find the old record by ID
+        if (oldRecord != null) {
+            // Remove the old record
+            database.remove(oldRecord.getID());
+            if (oldRecord instanceof Customer) {
+                customers.remove((Customer) oldRecord);
+            } else if (oldRecord instanceof Claim) {
+                claims.remove((Claim) oldRecord);
+            } else if (oldRecord instanceof InsuranceCard) {
+                insuranceCards.remove((InsuranceCard) oldRecord);
+            }
+
+            // Add the new record
+            add(newRecord);
         } else {
-            System.out.println("Record class not found");
+            System.out.println("Record not found for update");
         }
     }
+
 }

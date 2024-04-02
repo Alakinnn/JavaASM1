@@ -30,10 +30,10 @@ public interface ClaimProcessManager {
         String[] choiceTokens = choices.split(" ");
         int updateChoice = Integer.parseInt(choiceTokens[0]);
         if (updateChoice == 1) {
-            int statusChoice = Integer.parseInt(choiceTokens[-1]);
+            int statusChoice = Integer.parseInt(choiceTokens[1]);
             claim.setStatus(statusChoice);
         } else {
-            claim.addDocument(choiceTokens[-1]);
+            claim.addDocument(choiceTokens[1]);
         }
         rm.updateRecords(claim);
     };

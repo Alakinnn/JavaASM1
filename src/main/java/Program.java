@@ -67,6 +67,7 @@ public class Program {
                     int updateChoice = scanner.nextInt();
                     System.out.println("Input Claim ID: ");
                     String methodParam;
+                    scanner.nextLine();
                     String claimID = scanner.nextLine();
 
                     switch (updateChoice) {
@@ -77,9 +78,11 @@ public class Program {
                                     3. DONE
                                     """);
                             int statusChoice = scanner.nextInt();
-                             methodParam = updateChoice + " " + statusChoice;
+                            statusChoice--;
+                            methodParam = updateChoice + " " + statusChoice;
                             ClaimProcessManager.update(claimID, rm, methodParam);
                             System.out.println("Successfully updated claim status!");
+                            System.out.println(rm.find(claimID));
                             continue;
 
                         case 2:
@@ -88,6 +91,7 @@ public class Program {
                             methodParam = updateChoice + " " + newDocument;
                             ClaimProcessManager.update(claimID, rm, methodParam);
                             System.out.println("Successfully added claim's document!");
+                            System.out.println(rm.find(claimID));
                             continue;
 
                         default:
@@ -97,6 +101,7 @@ public class Program {
 
                 case 3:
                     System.out.println("Please enter claim ID: ");
+                    scanner.nextLine();
                     String deleteClaimID = scanner.nextLine();
                     if (rm.find(deleteClaimID) != null) {
                         ClaimProcessManager.delete(deleteClaimID, rm);
