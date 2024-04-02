@@ -65,7 +65,7 @@ public class Claim implements Recordable, Serializable {
     }
 
     public boolean addDocument(String document) {
-        documents.add(document); // TODO: Create a document String format check
+        documents.add(document);
         return true;
     }
     public boolean setStatus(int statusOrdinal) {

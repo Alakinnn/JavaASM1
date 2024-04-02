@@ -17,10 +17,10 @@ public class Program {
         System.out.println("----------------------------------");
         while (running) {
             System.out.println("""
-                    1. Add claim
-                    2. Update claim
-                    3. Delete claim
-                    4. Find claim
+                    1. Add a claim
+                    2. Update a claim
+                    3. Delete a claim
+                    4. Find a claim
                     5. Get all claims
                     0. Exit Program
                     """);
@@ -33,10 +33,19 @@ public class Program {
                     System.out.println("Insured person ID: ");
                     scanner.nextLine();
                     String insuredPersonID = scanner.nextLine();
+
+                    if (rm.find(insuredPersonID) == null) {
+                        System.out.println("Not found customer with ID: " + insuredPersonID);
+                        continue;
+                    }
                     scanner.nextLine();
 
                     System.out.println("Card Number: ");
                     String cardNumber = scanner.nextLine();
+                    if (rm.find(cardNumber) == null) {
+                        System.out.println("Not found card with number: " + insuredPersonID);
+                        continue;
+                    }
 
                     System.out.println("Exam Date: ");
                     String examDate = scanner.nextLine();
@@ -69,6 +78,11 @@ public class Program {
                     String methodParam;
                     scanner.nextLine();
                     String claimID = scanner.nextLine();
+
+                    if (rm.find(claimID) == null) {
+                        System.out.println("Not found claim with ID: " + claimID);
+                        continue;
+                    }
 
                     switch (updateChoice) {
                         case 1:
