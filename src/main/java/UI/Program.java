@@ -1,3 +1,5 @@
+package UI;
+
 import Claim.*;
 import Customer.Customer;
 import Datebase.RecordManager;
@@ -14,7 +16,10 @@ public class Program {
         boolean running = true;
         System.out.println("Welcome to the Insurance Manager Application");
         System.out.println("Version: 1.0.0");
-        System.out.println("----------------------------------");
+        System.out.println("-----------------------------------------------");
+        System.out.println("Please restart on first-time run");
+        System.out.println("-----------------------------------------------");
+
         while (running) {
             System.out.println("""
                     1. Add a claim
@@ -29,7 +34,6 @@ public class Program {
             switch (choice) {
                 case 1:
                     System.out.println("Please add claim information");
-                    System.out.println("DISCLAIMER: DUE TO UNDERDEVELOPED ERROR-HANDLING, INPUTS MUST BE ERROR-FREE!");
                     System.out.println("Insured person ID: ");
                     scanner.nextLine();
                     String insuredPersonID = scanner.nextLine();
@@ -78,8 +82,9 @@ public class Program {
                     String methodParam;
                     scanner.nextLine();
                     String claimID = scanner.nextLine();
+                    Claim queriedClaim = (Claim) rm.find(claimID);
 
-                    if (rm.find(claimID) == null) {
+                    if (queriedClaim == null) {
                         System.out.println("Not found claim with ID: " + claimID);
                         continue;
                     }
@@ -100,8 +105,13 @@ public class Program {
                             continue;
 
                         case 2:
-                            System.out.println("Please enter your document file name: ");
+                            System.out.println("Please enter your document file in pdf format: ");
+                            System.out.println("Example: mydocument.pdf");
+
                             String newDocument = scanner.nextLine();
+                            Customer associatedCustomer = (Customer) rm.find(queriedClaim.getInsuredPersonId());
+                            newDocument = claimID + "_" + associatedCustomer.getInsuranceCard().getCardNumber() + "_" + newDocument;
+
                             methodParam = updateChoice + " " + newDocument;
                             ClaimProcessManager.update(claimID, rm, methodParam);
                             System.out.println("Successfully added claim's document!");
