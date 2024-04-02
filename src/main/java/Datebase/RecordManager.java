@@ -73,19 +73,6 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
         }
     }
 
-    public List<Claim> getClaims() {
-        return claims;
-    }
-
-
-    public static List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public static List<InsuranceCard> getInsuranceCards() {
-        return insuranceCards;
-    }
-
     @Override
     public void add(T record) {
         database.put(record.getID(), record);
