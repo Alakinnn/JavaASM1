@@ -26,22 +26,12 @@ public class Program {
     }
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        UiScreenOperations.displayWelcomeMessage();
         boolean running = true;
-        System.out.println("Welcome to the Insurance Manager Application");
-        System.out.println("Version: 1.0.0");
-        System.out.println("-----------------------------------------------");
-        System.out.println("Please restart on first-time run");
-        System.out.println("-----------------------------------------------");
+
 
         while (running) {
-            System.out.println("""
-                    1. Add a claim
-                    2. Update a claim
-                    3. Delete a claim
-                    4. Find a claim
-                    5. Get all claims
-                    0. Exit Program
-                    """);
+            UiScreenOperations.displayMenuOptions();
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -154,7 +144,15 @@ public class Program {
                     System.out.println("Please enter claim ID: ");
                     String queriedClaimID = scanner.nextLine();
                     if (rm.find(queriedClaimID) != null) {
+                        Claim foundClaim = (Claim) rm.find(queriedClaimID);
                         System.out.println(rm.find(queriedClaimID));
+
+                        if (!foundClaim.getDocuments().isEmpty()) {
+                            for (String document : foundClaim.getDocuments()) {
+                                System.out.println(document);
+                            }
+                        }
+
                         continue;
                     } else {
                         System.out.println("Claim not found!");
