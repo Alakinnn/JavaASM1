@@ -1,6 +1,16 @@
 package UI;
+/**
+ * @author <Duong Tran Minh Hoang - S3978452>
+ */
 
+/**
+ * This interface defines operations for displaying UI screens and interacting with the user.
+ */
 public interface UiScreenOperations {
+
+    /**
+     * Displays a welcome message to the user.
+     */
     static void displayWelcomeMessage() {
         System.out.println("Welcome to the Insurance Manager Application");
         System.out.println("Version: 1.0.0");
@@ -9,6 +19,9 @@ public interface UiScreenOperations {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Displays menu options to the user.
+     */
     static void displayMenuOptions() {
         System.out.println("""
                 1. Add a claim
@@ -20,6 +33,10 @@ public interface UiScreenOperations {
                 """);
     }
 
+    /**
+     * Clears the screen based on the operating system.
+     * Note: This method might not work in all environments and is platform-dependent.
+     */
     static void clearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
