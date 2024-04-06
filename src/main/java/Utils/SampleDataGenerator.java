@@ -1,4 +1,7 @@
 package Utils;
+/**
+ * @author <Duong Tran Minh Hoang - S3978452>
+ */
 
 import Claim.*;
 import Customer.*;
@@ -6,7 +9,20 @@ import InsuranceCard.InsuranceCard;
 
 import java.util.ArrayList;
 import java.util.List;
-// This class was made so file can be created
+
+/**
+ * Generates sample data for testing purposes.
+ *
+ * <p>
+ *     This class creates sample instances of customers, insurance cards, and claims
+ *     for testing and demonstration purposes. The generated data can be used to populate
+ *     the database during application development or testing.
+ * </p>
+ *
+ * <p>
+ *     Note: This class is not meant to be used directly by users.
+ * </p>
+ */
 public class SampleDataGenerator {
 
     private final List<Customer> sampleCustomers = new ArrayList<>();

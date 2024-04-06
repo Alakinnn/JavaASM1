@@ -1,5 +1,10 @@
-import Datebase.FileOperations;
-import Datebase.RecordManager;
+/**
+ * @author <Duong Tran Minh Hoang - S3978452>
+ */
+
+import Database.FileOperations;
+import Database.RecordManager;
+import UI.Program;
 import Utils.SampleFileGenerator;
 
 public class Main {
