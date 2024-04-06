@@ -132,7 +132,25 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
      */
     @Override
     public void delete(String id) {
-        // Method implementation
+        T recordToDelete = find(id); // Find the record to delete by ID
+        if (recordToDelete != null) {
+            // Remove the record from the database
+            database.remove(id);
+
+            // Remove the record from the respective list
+            if (recordToDelete instanceof Customer) {
+                customers.remove((Customer) recordToDelete);
+                FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
+            } else if (recordToDelete instanceof Claim) {
+                claims.remove((Claim) recordToDelete);
+                FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
+            } else if (recordToDelete instanceof InsuranceCard) {
+                insuranceCards.remove((InsuranceCard) recordToDelete);
+                FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+            }
+        } else {
+            System.out.println("Record not found for deletion");
+        }
     }
 
     /**
@@ -143,8 +161,7 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
      */
     @Override
     public T find(String id) {
-        // Method implementation
-        return null;
+        return database.get(id);
     }
 
     /**
@@ -154,7 +171,18 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
      */
     @Override
     public void addRecords(T record) {
-        // Method implementation
+        if (record instanceof Customer) {
+            customers.add((Customer) record);
+            FileOperations.write(customers, FILE_ROOT + CUSTOMER_FILE);
+        } else if (record instanceof Claim) {
+            claims.add((Claim) record);
+            FileOperations.write(claims, FILE_ROOT + CLAIM_FILE);
+        } else if (record instanceof InsuranceCard) {
+            insuranceCards.add((InsuranceCard) record);
+            FileOperations.write(insuranceCards, FILE_ROOT + CARDS_FILE);
+        } else {
+            System.out.println("Record class not found");
+        }
     }
 
     /**
@@ -164,6 +192,22 @@ public class RecordManager<T extends Recordable> implements RecordOperations<T>,
      */
     @Override
     public void updateRecords(T newRecord) {
-        // Method implementation
+        T oldRecord = find(newRecord.getID()); // Find the old record by ID
+        if (oldRecord != null) {
+            // Remove the old record
+            database.remove(oldRecord.getID());
+            if (oldRecord instanceof Customer) {
+                customers.remove((Customer) oldRecord);
+            } else if (oldRecord instanceof Claim) {
+                claims.remove((Claim) oldRecord);
+            } else if (oldRecord instanceof InsuranceCard) {
+                insuranceCards.remove((InsuranceCard) oldRecord);
+            }
+
+            // Add the new record
+            add(newRecord);
+        } else {
+            System.out.println("Record not found for update");
+        }
     }
 }
