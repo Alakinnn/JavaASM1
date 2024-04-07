@@ -39,7 +39,7 @@ public class Program {
                     System.out.println("Please add claim information");
                     System.out.println("Insured person ID: ");
                     scanner.nextLine();
-                    String insuredPersonID = scanner.nextLine();
+                    String insuredPersonID = scanner.nextLine().trim();
 
                     if (rm.find(insuredPersonID) == null) {
                         System.out.println("Not found customer with ID: " + insuredPersonID);
@@ -48,27 +48,27 @@ public class Program {
                     scanner.nextLine();
 
                     System.out.println("Card Number: ");
-                    String cardNumber = scanner.nextLine();
+                    String cardNumber = scanner.nextLine().trim();
                     if (rm.find(cardNumber) == null) {
                         System.out.println("Not found card with number: " + insuredPersonID);
                         continue;
                     }
 
                     System.out.println("Exam Date: ");
-                    String examDate = scanner.nextLine();
+                    String examDate = scanner.nextLine().trim();
 
                     System.out.println("Claim Amount: ");
                     double claimAmount = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline character
 
                     System.out.println("Receiver Bank: ");
-                    String receiverBank = scanner.nextLine();
+                    String receiverBank = scanner.nextLine().trim();
 
                     System.out.println("Receiver Name: ");
-                    String receiverName = scanner.nextLine();
+                    String receiverName = scanner.nextLine().trim();
 
                     System.out.println("Receiver Bank Number: ");
-                    String receiverBankNumber = scanner.nextLine();
+                    String receiverBankNumber = scanner.nextLine().trim();
                     Claim claim = ClaimProcessManager.add(insuredPersonID, cardNumber, examDate, claimAmount, receiverBank, receiverName, receiverBankNumber, rm);
 
                     System.out.println("Successfully added claim!");
@@ -84,7 +84,7 @@ public class Program {
                     System.out.println("Input Claim ID: ");
                     String methodParam;
                     scanner.nextLine();
-                    String claimID = scanner.nextLine();
+                    String claimID = scanner.nextLine().trim();
                     Claim queriedClaim = (Claim) rm.find(claimID);
 
                     if (queriedClaim == null) {
@@ -111,7 +111,7 @@ public class Program {
                             System.out.println("Please enter your document file in pdf format: ");
                             System.out.println("Example: mydocument.pdf");
 
-                            String newDocument = scanner.nextLine();
+                            String newDocument = scanner.nextLine().trim();
                             Customer associatedCustomer = (Customer) rm.find(queriedClaim.getInsuredPersonId());
                             newDocument = claimID + "_" + associatedCustomer.getInsuranceCard().getCardNumber() + "_" + newDocument;
 
@@ -129,7 +129,7 @@ public class Program {
                 case 3:
                     System.out.println("Please enter claim ID: ");
                     scanner.nextLine();
-                    String deleteClaimID = scanner.nextLine();
+                    String deleteClaimID = scanner.nextLine().trim();
                     if (rm.find(deleteClaimID) != null) {
                         ClaimProcessManager.delete(deleteClaimID, rm);
                         System.out.println("Successfully deleted claim with ID: " + deleteClaimID);
@@ -142,7 +142,7 @@ public class Program {
                 case 4:
                     scanner.nextLine();
                     System.out.println("Please enter claim ID: ");
-                    String queriedClaimID = scanner.nextLine();
+                    String queriedClaimID = scanner.nextLine().trim();
                     if (rm.find(queriedClaimID) != null) {
                         Claim foundClaim = (Claim) rm.find(queriedClaimID);
                         System.out.println(rm.find(queriedClaimID));
@@ -162,7 +162,7 @@ public class Program {
                 case 5:
                     scanner.nextLine();
                     System.out.println("Please enter customer ID: ");
-                    String customerID = scanner.nextLine();
+                    String customerID = scanner.nextLine().trim();
                     if (rm.find(customerID) != null){
                         Customer customer = (Customer) rm.find(customerID);
                         if (customer.getClaimList().isEmpty()) {
